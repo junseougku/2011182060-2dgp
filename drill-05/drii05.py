@@ -22,7 +22,7 @@ def movePosition(_x,_y,now_x,now_y):
         update_canvas()
         frame = (frame + 1) % 8
         now_x += moveX_distance
-        now_y += moveY_distance
+        now_y += moveY_distance 
         if(count ==30):
             break;
         count += 1
