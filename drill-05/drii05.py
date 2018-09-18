@@ -5,9 +5,7 @@ open_canvas()
 grass = load_image('grass.png')
 character = load_image('animation_sheet.png')
 
-def movePosition(_x,_y):
-    x = 800//2
-    y = 600//2
+def movePosition(_x,_y,x,y):
     frame = 0
     moveX = (_x - x) / 30
     moveY = (_y - y) / 30
@@ -27,8 +25,8 @@ def movePosition(_x,_y):
         get_events()
 
 while(True):
-    movePosition(203 , 535)
-    movePosition(132 , 243)
+    movePosition(203 , 535,800//2,600//2)
+    movePosition(132 , 243,203,535)
 
 
 close_canvas()
