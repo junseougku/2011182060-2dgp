@@ -7,8 +7,8 @@ character = load_image('animation_sheet.png')
 
 def movePosition(_x,_y,now_x,now_y):
     frame = 0
-    moveX = (_x - now_x) / 30
-    moveY = (_y - now_y) / 30
+    moveX_distance = (_x - now_x) / 30
+    moveY_distance = (_y - now_y) / 30
     count = 0
     rot = 0
     if(now_x - _x >0) :
@@ -21,8 +21,8 @@ def movePosition(_x,_y,now_x,now_y):
         character.clip_draw(frame * 100, rot, 100, 100, now_x, now_y)
         update_canvas()
         frame = (frame + 1) % 8
-        now_x += moveX
-        now_y += moveY
+        now_x += moveX_distance
+        now_y += moveY_distance
         if(count ==30):
             break;
         count += 1
