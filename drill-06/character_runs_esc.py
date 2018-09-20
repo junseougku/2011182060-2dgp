@@ -91,6 +91,7 @@ def handle_events():
     global moveRe
     global dest_X
     global rot
+    global  count
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -100,7 +101,8 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
         elif event.type == SDL_MOUSEBUTTONDOWN:
-            dest_X, dest_Y = event.x, KPU_HEIGHT - 1 - event.y
+            count = 0
+            dest_X, dest_Y = event.x , KPU_HEIGHT - 1 - event.y - 150
             moveX_distance = (event.x - px) / 30
             moveY_distance = (KPU_HEIGHT - 1 - event.y - py) / 30
             moveRe = True
