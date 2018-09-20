@@ -89,6 +89,8 @@ def handle_events():
     global moveX_distance
     global moveY_distance
     global moveRe
+    global dest_X
+    global rot
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -102,12 +104,15 @@ def handle_events():
             moveX_distance = (event.x - px) / 30
             moveY_distance = (KPU_HEIGHT - 1 - event.y - py) / 30
             moveRe = True
-
+            if (px - dest_X > 0):
+                rot = 0
+            else:
+                rot = 100
 
 while running:
 
     clear_canvas()
-    #grass.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
+    grass.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
 
     character.clip_draw(frame * 100, rot, 100, 100, px, py)
     mousePicture.draw(x, y)
@@ -117,13 +122,13 @@ while running:
         px += moveX_distance
         py += moveY_distance
         count += 1
-    if (px -  dest_X> 0):
-        rot = 0
-    else:
-        rot = 100
-    if (count== 30):
+    if count== 30:
         moveRe = False
         count = 0
+        if rot == 100:
+            rot = 300
+        elif rot == 0:
+            rot = 200
     frame = (frame + 1) % 8
     x += dir * 5
     delay(0.05)
