@@ -61,12 +61,19 @@ KPU_WIDTH , KPU_HEIGHT = 1280, 1024
 
 open_canvas(KPU_WIDTH,KPU_HEIGHT)
 grass = load_image('KPU_GROUND.png')
-character = load_image('run_animation.png')
+character = load_image('animation_sheet.png')
+mousePicture = load_image('hand_arrow.png')
+
+
 
 running = True
 frame = 0
-x = 800//2
+px = KPU_WIDTH//2
+py = KPU_HEIGHT//2
+x = 0
+y = 0
 dir = 0
+rot = 300
 def handle_events():
     global running
     global x,y
@@ -78,17 +85,20 @@ def handle_events():
             x,y = event.x , KPU_HEIGHT-1-event.y
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
-
+        elif event.type == SDL_MOUSEBUTTONDOWN:
+            px, py = event.x, KPU_HEIGHT - 1 - event.y
 
 
 while running:
 
     clear_canvas()
-    grass.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
-    character.clip_draw(frame * 100, 0, 100, 100, x, 90)
-    update_canvas()
+    #grass.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
 
+    character.clip_draw(frame * 100, rot, 100, 100, px, py)
+    mousePicture.draw(x, y)
+    update_canvas()
     handle_events()
+
     frame = (frame + 1) % 8
     x += dir * 5
     delay(0.05)
