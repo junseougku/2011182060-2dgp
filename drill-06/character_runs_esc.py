@@ -77,12 +77,18 @@ rot = 300
 
 moveX_distance = 0
 moveY_distance = 0
+
+dest_X = 0
+dest_Y = 0
+count = 0
+moveRe = False
 def handle_events():
     global running
     global x,y
     global px,py
     global moveX_distance
     global moveY_distance
+    global moveRe
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -92,9 +98,11 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
         elif event.type == SDL_MOUSEBUTTONDOWN:
-            #px, py = event.x, KPU_HEIGHT - 1 - event.y
+            dest_X, dest_Y = event.x, KPU_HEIGHT - 1 - event.y
             moveX_distance = (event.x - px) / 30
             moveY_distance = (KPU_HEIGHT - 1 - event.y - py) / 30
+            moveRe = True
+
 
 while running:
 
@@ -105,9 +113,17 @@ while running:
     mousePicture.draw(x, y)
     update_canvas()
     handle_events()
-    px += moveX_distance
-    py += moveY_distance
-    
+    if(moveRe):
+        px += moveX_distance
+        py += moveY_distance
+        count += 1
+    if (px -  dest_X> 0):
+        rot = 0
+    else:
+        rot = 100
+    if (count== 30):
+        moveRe = False
+        count = 0
     frame = (frame + 1) % 8
     x += dir * 5
     delay(0.05)
